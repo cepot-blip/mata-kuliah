@@ -5,11 +5,21 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TaUas extends JFrame implements ActionListener {
+public class MasterClass {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            TaUas app = new TaUas();
+            app.run();
+        });
+    }
+}
+
+class TaUas extends JFrame implements ActionListener {
     private JList<String> menuMakananList;
     private JList<String> menuMinumanList;
     private JButton pesanButton;
     private JButton bayarButton;
+    private JButton keluarButton;
     private JTextField uangBayarTextField;
     private JLabel totalHargaLabel;
     private JLabel kembalianLabel;
@@ -63,13 +73,14 @@ public class TaUas extends JFrame implements ActionListener {
             9000
     };
 
-    public TaUas() {
+    public void run() {
         setTitle("Daftar Menu");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridBagLayout());
+        setPreferredSize(new Dimension(700, 600));
 
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.insets = new Insets(12, 12, 12, 12);
+        constraints.insets = new Insets(15, 15, 15, 15);
 
         JLabel menuMakananLabel = new JLabel("Menu Makanan");
         JLabel menuMinumanLabel = new JLabel("Menu Minuman");
@@ -81,15 +92,17 @@ public class TaUas extends JFrame implements ActionListener {
         uangBayarTextField = new JTextField(10);
         pesanButton = new JButton("Pesan");
         bayarButton = new JButton("Bayar");
+        keluarButton = new JButton("Keluar");
         totalHargaLabel = new JLabel("Total Harga: Rp 0");
         kembalianLabel = new JLabel("Kembalian: Rp 0");
 
         pesanButton.addActionListener(this);
         bayarButton.addActionListener(this);
+        keluarButton.addActionListener(this);
 
         menuMakananList = new JList<>(menuMakanan);
         menuMakananScrollPane.setViewportView(menuMakananList);
-        menuMakananScrollPane.setPreferredSize(new Dimension(160, 210));
+        menuMakananScrollPane.setPreferredSize(new Dimension(160, 200));
         menuMakananList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         menuMakananList.addListSelectionListener(e -> {
             int index = menuMakananList.getSelectedIndex();
@@ -130,6 +143,11 @@ public class TaUas extends JFrame implements ActionListener {
         constraints.gridheight = 3;
         add(menuMakananScrollPane, constraints);
 
+        constraints.gridx = 2;
+        constraints.gridy = 1;
+        constraints.gridheight = 3;
+        add(menuMinumanScrollPane, constraints);
+
         constraints.gridx = 1;
         constraints.gridy = 1;
         constraints.gridheight = 1;
@@ -139,37 +157,32 @@ public class TaUas extends JFrame implements ActionListener {
         constraints.gridy = 2;
         add(uangBayarTextField, constraints);
 
-        constraints.gridx = 2;
-        constraints.gridy = 1;
-        constraints.gridheight = 3;
-        add(menuMinumanScrollPane, constraints);
-
         constraints.gridx = 0;
         constraints.gridy = 4;
-        constraints.gridwidth = 1;
+        constraints.gridwidth = 2;
         add(pesanButton, constraints);
 
         constraints.gridx = 2;
         constraints.gridy = 4;
         add(bayarButton, constraints);
 
+        constraints.gridx = 3;
+        constraints.gridy = 4;
+        add(keluarButton, constraints);
+
         constraints.gridx = 0;
-        constraints.gridy = -5;
-        constraints.gridwidth = 6;
+        constraints.gridy = 5;
+        constraints.gridwidth = 4;
         add(totalHargaLabel, constraints);
 
         constraints.gridx = 0;
-        constraints.gridy = -5;
+        constraints.gridy = 6;
         constraints.gridwidth = 4;
         add(kembalianLabel, constraints);
 
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(TaUas::new);
     }
 
     @Override
@@ -209,6 +222,12 @@ public class TaUas extends JFrame implements ActionListener {
                     "Uang Bayar       : Rp " + uangBayar + "\n" +
                     "Kembalian        : Rp " + kembalian;
             JOptionPane.showMessageDialog(this, message, "Pembayaran Berhasil", JOptionPane.INFORMATION_MESSAGE);
+        } else if (e.getSource() == keluarButton) {
+            int result = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin keluar?", "Konfirmasi Keluar",
+                    JOptionPane.YES_NO_OPTION);
+            if (result == JOptionPane.YES_OPTION) {
+                System.exit(0);
+            }
         }
     }
 }
