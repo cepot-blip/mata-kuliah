@@ -5,16 +5,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MasterClass {
+public class DaftarMenu {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            TaUas app = new TaUas();
+            ListMenu app = new ListMenu();
             app.run();
         });
     }
 }
 
-class TaUas extends JFrame implements ActionListener {
+class ListMenu extends JFrame implements ActionListener {
     private JList<String> menuMakananList;
     private JList<String> menuMinumanList;
     private JButton pesanButton;
