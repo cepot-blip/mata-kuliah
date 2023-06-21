@@ -62,12 +62,9 @@ public class LoginPage extends JFrame implements ActionListener {
         char[] passwordChars = passwordField.getPassword();
         String password = new String(passwordChars);
 
-        // Perform authentication logic here
-        if (username.equals("admin") && password.equals("password")) {
-            // Redirect to the desired code
+        if (username.equals("admin") && password.equals("admin")) {
             ListMenu app = new ListMenu();
             app.run();
-            dispose(); // Close the login page
         } else {
             JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Failed",
                     JOptionPane.ERROR_MESSAGE);
