@@ -18,6 +18,8 @@ public class LoginPage extends JFrame implements ActionListener {
         setLayout(new GridBagLayout());
         setPreferredSize(new Dimension(400, 300));
 
+        getContentPane().setBackground(new Color(204, 229, 255));
+
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(10, 10, 10, 10);
 
